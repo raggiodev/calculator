@@ -5,7 +5,7 @@ class Display {
     this.calculator = new Calculator();
     this.OperatorType = undefined;
     this.valorActual = '';
-    this.ValorAnterior = '';
+    this.calorAnterior = '';
   }
 
   addNumber(n) {
@@ -17,7 +17,7 @@ class Display {
 
   printValue() {
     this.displayValorActual.textContent = this.valorActual;
-    this.displayValorAnterior.textContent = this.ValorAnterior;
+    this.displayValorAnterior.textContent = this.valorAnterior;
   }
 
   delete() {
@@ -27,8 +27,16 @@ class Display {
 
   deleteAll() {
     this.valorActual = '';
-    this.ValorAnterior = '';
+    this.valorAnterior = '';
     this.OperatorType = undefined;
     this.printValue();
+  }
+
+  calc() {
+    const valorAnterior = parseFloat(this.valorAnterior);
+    const valorActual = parseFloat(this.valorActual);
+
+    if(isNaN(valorActual) || isNaN(valorAnterior)) return
+    this.valorActual = this.calculator[this.OperatorType](valorAnterior, valorActual);
   }
 }
