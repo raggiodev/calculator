@@ -1,9 +1,9 @@
-const displayValorAnterior = document.getElementById('valor-anterior');
-const displayValorActual = document.getElementById('valor-actual');
-const btnNumber = document.querySelectorAll('.numero');
-const btnOperator = document.querySelectorAll('.operador');
+const displayprevValue = document.getElementById('prev-value');
+const displaycurrentValue = document.getElementById('current-value');
+const btnNumber = document.querySelectorAll('.numb');
+const btnOperator = document.querySelectorAll('.operator');
 
-const display = new Display(displayValorAnterior, displayValorActual); 
+const display = new Display(displayprevValue, displaycurrentValue); 
 
 btnNumber.forEach(btn => {
   btn.addEventListener('click', () => display.addNumber(btn.innerHTML));

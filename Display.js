@@ -1,27 +1,22 @@
 class Display {
-  constructor(displayValorAnterior, displayValorActual) {
-    this.displayValorActual = displayValorActual;
-    this.displayValorAnterior = displayValorAnterior;
+  constructor(displayPrevValue, displayCurrentValue) {
+    this.displayCurrentValue = displayCurrentValue;
+    this.displayPrevValue = displayPrevValue;
     this.calculator = new Calculator();
     this.OperatorType = undefined;
-    this.valorActual = '';
-    this.valorAnterior = '';
-    this.symbols = {
-      add: '+',
-      substract: '-', 
-      multiply: 'x',
-      divide: '%',
-    }
+    this.currentValue = '';
+    this.prevValue = '';
+    this.symbols = { add: '+', substract: '-', multiply: 'x', divide: '%' }
   }
 
   delete() {
-    this.valorActual = this.valorActual.toString().slice(0, -1);
+    this.currentValue = this.currentValue.toString().slice(0, -1);
     this.printValue();
   }
 
   deleteAll() {
-    this.valorActual = '';
-    this.valorAnterior = '';
+    this.currentValue = '';
+    this.prevValue = '';
     this.OperatorType = undefined;
     this.printValue();
   }
@@ -29,29 +24,29 @@ class Display {
   compute(type) {
     this.OperatorType !== 'equal' && this.calc();
     this.OperatorType = type;
-    this.valorAnterior = this.valorActual || this.valorAnterior;
-    this.valorActual = '';
+    this.prevValue = this.currentValue || this.prevValue;
+    this.currentValue = '';
     this.printValue();
   }
 
   addNumber(n) {
-    if(n === '.' && this.valorActual.includes('.')) return
+    if(n === '.' && this.currentValue.includes('.')) return
 
-    this.valorActual = this.valorActual.toString() + n.toString();
+    this.currentValue = this.currentValue.toString() + n.toString();
     this.printValue();
   }
 
   printValue() {
-    this.displayValorActual.textContent = this.valorActual;
-    this.displayValorAnterior.textContent = `${this.valorAnterior} ${this.symbols[this.OperatorType] || ''}`;
+    this.displayCurrentValue.textContent = this.currentValue;
+    this.displayPrevValue.textContent = `${this.prevValue} ${this.symbols[this.OperatorType] || ''}`;
   }
 
-
   calc() {
-    const valorAnterior = parseFloat(this.valorAnterior);
-    const valorActual = parseFloat(this.valorActual);
+    const prevValue = parseFloat(this.prevValue);
+    const currentValue = parseFloat(this.currentValue);
 
-    if(isNaN(valorActual) || isNaN(valorAnterior)) return
-    this.valorActual = this.calculator[this.OperatorType](valorAnterior, valorActual);
+    if(isNaN(currentValue) || isNaN(prevValue)) return
+
+    this.currentValue = this.calculator[this.OperatorType](prevValue, currentValue);
   }
 }
